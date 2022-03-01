@@ -1,0 +1,116 @@
+﻿@using CC_LAB1.Models
+@model Truck
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1>Welcome!</h1>
+    <br />
+    <br />
+    <br />
+    <div>
+        <h2>Trucks</h2>
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Truck Number</th>
+                    <th>Truck Model</th>
+                    <th>Truck Make</th>
+                    <th>Route</th>
+                    <th>Assign Route</th>
+                    <th>Delete Route</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Truck t in ViewBag.Trucks)
+                {
+                    <tr>
+                        <td>@t.truck_num</td>
+                        <td>@t.t_model</td>
+                        <td>@t.t_make</td>
+                        <td>@(t.route_number != null ? t.route_number : "none")</td>
+                        <td>
+                            <form asp-action="ChangeRoute" method="post">
+                                <div asp-validation-summary="All">
+                                    <p>
+                                        <input asp-for="truck_num" type="hidden" value="@t.truck_num" />
+                                        <input asp-for="t_model" type="hidden" value="@t.t_model" />
+                                        <input asp-for="t_make" type="hidden" value="@t.t_make" />
+                                        <select asp-for="route_number">
+                                            <option value="" disabled selected> Choose a Route</option>
+                                            @foreach (Route r in ViewBag.AvailRoutes)
+                                            {
+                                                <option value="@r.route_number">@r.route_number</option>
+                                            }
+
+                                        </select>
+                                    </p>
+                                </div>
+                                @if (t.route_number == null)
+                                {
+                                    <button type="submit">Assign Route</button>
+                                }
+                                else
+                                {
+                                    <p>Already assigned route.</p>
+                                }
+                            </form>
+                        </td>
+                        @if (t.route_number != null)
+                        {
+                            <td>
+                                <form asp-action="Delete" method="post">
+                                    <div asp-validation-summary="All">
+                                        <p>
+                                            <input asp-for="truck_num" type="hidden" value="@t.truck_num" />
+                                            <input asp-for="t_model" type="hidden" value="@t.t_model" />
+                                            <input asp-for="t_make" type="hidden" value="@t.t_make" />
+                                            <input asp-for="route_number" type="hidden" value="@t.route_number" />
+                                        </p>
+                                    </div>
+                                    <button type="submit">Delete From Route</button>
+                                </form>
+                            </td>
+                        }
+                        else
+                        {
+                            <td> Does not have an assigned route.</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+
+    <div>
+        <h2>Routes </h2>
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Route Number</th>
+                    <th>Route Name</th>
+                    <th>Route Length</th>
+                    <th>Pay Per KM</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Route r in ViewBag.AvailRoutes)
+                {
+                    <tr>
+                        <td>@r.route_number</td>
+                        <td>@r.route_name</td>
+                        <td>@r.r_length KM</td>
+                        <td>$@r.r_pay_per_km</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

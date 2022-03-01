@@ -1,0 +1,54 @@
+﻿@using CC_LAB1.Models
+@model Truck
+@{
+ViewData["Title"] = "Trucks";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div>
+        Trucks Form
+    </div>
+    <form asp-action="Trucks" method="post">
+        <div asp-validation-summary="All">
+            <p>
+                <div>
+                    <label asp-for="truck_num">Truck Number:</label>
+                    <input asp-for="truck_num" />
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="t_model">Truck Model:</label>
+                    <input asp-for="t_model" />
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="t_make">Truck Make:</label>
+                    <input asp-for="t_make" />
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label>Route</label>
+                    <select asp-for="route_number">
+                        <option value="">Choose an option</option>
+                        @foreach (Route r in ViewBag.AvailRoutes)
+                        {
+                            <option value="@r.route_number">@r.route_number</option>
+                        }
+
+                    </select>
+                </div>
+            </p>
+        </div>
+        <button type="submit">Truck Submit</button>
+    </form>
+</body>
+</html>

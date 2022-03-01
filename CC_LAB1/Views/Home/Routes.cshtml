@@ -1,0 +1,48 @@
+﻿@model Route
+@{
+    ViewData["Title"] = "Routes";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div>
+        Routes Form
+    </div>
+    <form asp-action="Routes" method="post">
+        <div asp-validation-summary="All">
+            <p>
+                <div>
+                    <label asp-for="route_number">Route Number:</label>
+                    <input asp-for="route_number" />
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="route_name">Route Name:</label>
+                    <input asp-for="route_name" />
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="r_length">Route Length:</label>
+                    <input asp-for="r_length" />
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="r_pay_per_km">Pay Per KM:</label>
+                    <input asp-for="r_pay_per_km" />
+                </div>
+            </p>
+        </div>
+        <button type="submit">Route Submit</button>
+    </form>
+</body>
+</html>
+
+

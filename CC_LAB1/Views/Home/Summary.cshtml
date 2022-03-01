@@ -1,0 +1,50 @@
+﻿@using CC_LAB1.Models
+@model IEnumerable<Truck>
+@{
+    ViewData["Title"] = "Summary";
+}
+<h1>@ViewData["Title"]</h1>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
+</head>
+<body>
+    <div class="text-center p-2">
+        <h2 class="bg-secondary text-white text-center m-2 p-2"> Trucks/Assigned Routes </h2>
+        
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Route Name</th>
+                    <th>Truck Number</th>
+                    <th>Route Length</th>
+                    <th>Total Payment</th>
+                </tr>
+            </thead>
+         
+            <tbody>
+
+                @foreach (Truck t in Model)
+                {
+
+                    if (t.route_number != null)
+                    {
+                        Route r = ((IEnumerable<Route>)ViewBag.RouteList).First(x => x.route_number == t.route_number);
+                        <tr>
+                            <td>@r.route_name</td>
+                            <td>@t.truck_num</td>
+                            <td>@r.r_length KM</td>
+                            <td>$@(r.r_pay_per_km * @r.r_length)</td>
+                         
+                        </tr>
+                    }
+                }
+            </tbody>
+            
+        </table>
+    </div>
+</body>
+</html>
